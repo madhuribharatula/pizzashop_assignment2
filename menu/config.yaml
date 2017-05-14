@@ -1,0 +1,13 @@
+region: us-west-2
+
+aws_access_key_id:
+aws_secret_access_key:
+
+function_name: my_lambda_function
+role:
+description: My first lambda function
+handler : service.pizza_menu_handler
+
+
+
+

@@ -1,0 +1,33 @@
+// POST Mapping Template
+
+#set($inputRoot = $input.path('$'))
+{
+    "TableName": "order",
+    "httpMethod":"$context.httpMethod",
+	"menu_id":"$input.path('$.menu_id')",
+    "order_id": "$input.path('$.order_id')",
+    "customer_name":"$input.path('$.customer_name')",
+    "customer_email": "$input.path('$.customer_email')"
+}
+
+// GET Mapping Template
+
+#set($inputRoot = $input.path('$'))
+{
+    "TableName": "order",
+    "httpMethod":"$context.httpMethod",
+    "order_id": "$util.escapeJavaScript($input.params('order_id'))"
+}
+
+// PUT Mapping Template
+
+{
+  "body" : $input.json('$'),
+  "httpMethod": "$context.httpMethod",
+  "params": {
+    #foreach($param in $input.params().path.keySet())
+    "$param": "$util.escapeJavaScript($input.params().path.get($param))" #if($foreach.hasNext),#end
+
+    #end
+  }
+}

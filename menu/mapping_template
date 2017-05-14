@@ -1,0 +1,50 @@
+// GET Mapping Template
+
+#set($inputRoot = $input.path('$'))
+{
+    "TableName": "menu",
+    "httpMethod":"$context.httpMethod",
+    "menu_id": "$util.escapeJavaScript($input.params('menu_id'))"
+}
+
+
+// POST Mapping Template
+
+#set($inputRoot = $input.path('$'))
+{
+    "TableName": "menu",
+    "httpMethod":"$context.httpMethod",
+	"menu_id":"$input.path('$.menu_id')",
+    "store_name": "$input.path('$.store_name')",
+        "selection": $input.path('$.selection'),
+        "size":  $input.path('$.size'),
+        "sequence": $input.path('$.sequence'),
+        "price":$input.path('$.price'),
+        "store_hours":{ #foreach( $key in $input.path('$.store_hours').keySet() )
+        "$key": "$input.path('$.store_hours').get($key)"#if($foreach.hasNext),
+        #end
+    #end
+    }
+}
+
+// DELETE Mapping Template
+
+#set($inputRoot = $input.path('$'))
+{
+    "TableName": "menu",
+    "httpMethod":"$context.httpMethod",
+    "menu_id": "$util.escapeJavaScript($input.params('menu_id'))"
+}
+
+// PUT mapping Template
+
+{
+  "body" : $input.json('$'),
+  "httpMethod": "$context.httpMethod",
+  "params": {
+    #foreach($param in $input.params().path.keySet())
+    "$param": "$util.escapeJavaScript($input.params().path.get($param))" #if($foreach.hasNext),#end
+
+    #end
+  }
+}

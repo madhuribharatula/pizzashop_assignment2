@@ -1,0 +1,15 @@
+{
+    "httpMethod" : "PUT",
+
+    "params": {
+        "menu_id": "123"
+    },
+
+   "body": {
+       "selection": [
+           "Cheese",
+           "Pepperoni",
+           "vegetables123"
+       ]
+   }
+}
